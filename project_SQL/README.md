@@ -76,3 +76,44 @@ Here are the insights from the Highest paying Data Analyst jobs in Inidan job ma
 - **Reliable Job Source :** AI-jobs.net emerged as a prominent and trustworthy platform for finding Data-related job opportunities.
 
 - **Title & Employer Diversity :** There's a wide range of companies hiring under various job titles, highlighting India’s diverse and growing demand for Data Analyst professionals.
+
+### 2_In_demand_skills
+
+Analyzing the most in-demand skills for Data Aanlyst in India data market and here's my approach:
+ - **🥅Filtering :** Based on
+>>- **1 -** Data Analyst role
+>>- **2 -** Job postings from India
+>>- **3 -** Job type 'Full-time'
+
+- **📼Joining Tables :** Used 'INNER JOIN' to combine the necessary tables to retrieve the skills data in relation to the job postings.
+- **Aggregation :** Used aggregation function 'COUNT()' to count the total number of skills associated with the job postings.
+
+- **💻Group by :** Grouped by skills column to get the individual skill count
+
+- **➡️Order by :** Ordered the result table in descending order by skill_count
+
+```sql
+SELECT
+    skills,
+    COUNT(job_postings_fact.job_id) AS skill_count
+FROM job_postings_fact
+INNER JOIN skills_job_dim ON job_postings_fact.job_id = skills_job_dim.job_id
+INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
+WHERE
+    job_title_short = 'Data Analyst' AND
+    job_postings_fact.job_country = 'India' AND
+    job_postings_fact.job_schedule_type = 'Full-time'
+GROUP BY
+    skills
+ORDER BY
+    skill_count DESC
+LIMIT 10;
+```
+
+# Insight
+Here are the insights from the most In-demand skills for Data Analyst in the Indian data market:
+
+- **Top skills :**
+For a Analyst in Indian data market the top most required skills are SQL, Python, Excel and tableau.
+
+- **Technical skills focus :** Strong emphasis on SQL shows the importance of querying data in Analyst roles and Python indicates the need for automation, data wrangling and scripting skills.
