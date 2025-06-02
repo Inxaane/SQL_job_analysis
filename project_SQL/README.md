@@ -111,9 +111,99 @@ LIMIT 10;
 ```
 
 # Insight
-Here are the insights from the most In-demand skills for Data Analyst in the Indian data market:
+Here are the insights fro the most In-demand skills for Data Analyst in the Indian data market:
 
 - **Top skills :**
 For a Analyst in Indian data market the top most required skills are SQL, Python, Excel and tableau.
 
 - **Technical skills focus :** Strong emphasis on SQL shows the importance of querying data in Analyst roles and Python indicates the need for automation, data wrangling and scripting skills.
+
+### 3_high_paying_skills
+Analyzing the highest paying skills in Indian data job market and here's my approach:
+
+- **Filtering :** Based on
+>>- **1 -** Data Analyst role
+>>- **2 -** Job postings from India
+>>- **3 -** Job type 'Full-time'
+>>- **4 -** Salary is not null
+
+- **Aggregation :** Used aggregation function 'AVG()' to find the average salary and 'ROUND()' function to remove the decimal values from the average salary.
+
+- **Joining Tables :** Used 'INNER JOIN' to effectively join tables to retrieve the skills data in relation with the job postings table.
+
+- **Group by :** Grouped by skills.
+
+- **Sorting :** Sorted in descending order by average salary.
+
+```sql
+SELECT
+    skills,
+    ROUND(AVG(salary_year_avg)) AS avg_salary
+FROM
+    job_postings_fact
+INNER JOIN skills_job_dim ON job_postings_fact.job_id = skills_job_dim.job_id
+INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
+WHERE
+    job_title_short = 'Data Analyst' AND
+    job_country = 'India' AND
+    job_schedule_type = 'Full-time' AND
+    salary_year_avg IS NOT NULL
+GROUP BY
+    skills
+ORDER BY
+    avg_salary DESC
+LIMIT 10;
+```
+
+# Insight
+Here are the insights for high_paying_skills in Indian data job market:
+
+- **1. Backend and Data Engineering Skills Dominate :**
+Skills such as PostgreSQL, MySQL, PySpark, and Linux top the list with an average salary of $165,000, indicating that data analysts with knowledge in data infrastructure and engineering tools are highly valued.
+
+### 4_optimal_skills
+Aanlyzing the optimal skills for Data Aanlyst role in Indian data job market and here's my approach:
+
+- **Filtering :** Based on
+>>- **1 -** Data Analyst role
+>>- **2 -** Job postings from India
+>>- **3 -** Job type 'Full-time'
+>>- **4 -** Salary is not null
+
+- **Aggregation :** Used aggregation function 'AVG()' to find the average salary and 'ROUND()' and 'COUNT()' functions to find the skill_count and remove the decimal values from the average salary.
+
+- **Joining Tables :** Used 'INNER JOIN' to effectively join tables to retrieve the skills data in relation with the job postings table.
+
+- **Group by :** Grouped by skills.
+
+- **Sorting :** Sorted in descending order by average salary.
+
+```sql
+SELECT
+    skills,
+    ROUND(AVG(salary_year_avg)) AS avg_salary,
+    COUNT(job_postings_fact.job_id) AS skill_count
+FROM
+    job_postings_fact
+INNER JOIN skills_job_dim ON job_postings_fact.job_id = skills_job_dim.job_id
+INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
+WHERE
+    job_title_short = 'Data Analyst' AND
+    job_country = 'India' AND
+    job_schedule_type = 'Full-time' AND
+    salary_year_avg IS NOT NULL
+GROUP BY
+    skills
+HAVING
+    COUNT(job_postings_fact.job_id) > 10
+ORDER BY
+    avg_salary DESC
+LIMIT 10;
+```
+
+# Insight
+Here are the insights on optimal skills for Data Analyst in Indian data job market:
+
+- **optimal skills for high pay :** spark, Power Bi and Oracle are the most prominent high paying skills
+
+- **Consistent paying skills :** Python, SQL and Excel offers a consistent job oppertunity with the salary range of $88,000 - $96,000.
