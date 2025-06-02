@@ -1,0 +1,78 @@
+# Introduction
+In this project, we explore 2023's Data Analyst job postings in India to uncover insights such as:
+
+- 💵Highest paying Data Analyst roles
+- 🧠Skills required for the top paying jobs
+- 📈Most in-demand skills for Data Analysts
+- 💹Highest paying skills for Data Analysts
+- 🖥️Optimal skills to learn for aspiring Data Analysts
+
+The goal is to help job seekers identify valuable skills and trends in Indian data job market using real-world job data.
+# Tools I Used
+- **SQL :** To query the data efficiently
+- **PostgreSQL :** Chosen Data Management system to main the job_postings data
+- **Visual Studio Code :** One of my favourite code editor for writing and managing .sql files
+- **Markdown :** For documenting my work in Readme.md file
+- **Git & GitHub :** For version control and project sharing
+
+# Analysis
+Each query in this project is aimed at investingating definitive aspects for Data Analyst roles in India. Here is my approach:
+
+### 1_Top_paying_Data_Analyst_roles
+To identify the Highest-paying Data Analyst roles in India here's my approach:
+
+- 🧹**Data Clean Up :** Removed repeated job postings from a same company by using combination of distinct values
+
+- 🥅**Data Filtering :** focused on
+>>- **1 -** Data Analyst role
+>>- **2 -** Job postings from India
+>>- **3 -** Job type 'Full-time'
+>>- **4 -** salary less than 300k to exclude outliers
+
+- 💻**Query Optimization with CTE & Join :** Used CTE for better readability and used LEFT JOIN to incorporate the company names into the CTE.
+
+- 🔄️**SORTING :** Sorted the table in descending order based on the salary
+
+
+
+```sql
+WITH data_jobs AS (
+    SELECT DISTINCT ON 
+        (job_postings_fact.job_title,
+        company_dim.name,
+        job_postings_fact.salary_year_avg)
+
+        job_title AS title,
+        job_location AS location,
+        job_via,
+        company_dim.name AS company_name,
+        job_schedule_type AS type,
+        salary_year_avg AS salary
+    FROM
+        job_postings_fact
+    LEFT JOIN company_dim ON job_postings_fact.company_id = company_dim.company_id
+    WHERE
+        job_title_short = 'Data Analyst' AND
+        job_country = 'India' AND
+        job_schedule_type = 'Full-time' AND
+        salary_year_avg < 300000
+)
+
+SELECT *
+FROM data_jobs
+ORDER BY
+    salary DESC
+LIMIT
+    25;
+```
+
+# Insight
+Here are the insights from the Highest paying Data Analyst jobs in Inidan job market 2023:
+
+- **Salary Range :** Data Analyst roles in India offer competitive salaries, ranging from $110K to $170K per year, making it a financially reliable career choice for aspiring analysts.
+
+- **Top Hiring Company :** The Bosch Group had the highest number of job postings, positioning it as one of the top employers for Data Analyst roles in India.
+
+- **Reliable Job Source :** AI-jobs.net emerged as a prominent and trustworthy platform for finding Data-related job opportunities.
+
+- **Title & Employer Diversity :** There's a wide range of companies hiring under various job titles, highlighting India’s diverse and growing demand for Data Analyst professionals.
