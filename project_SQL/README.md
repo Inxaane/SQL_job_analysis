@@ -2,7 +2,6 @@
 In this project, we explore 2023's Data Analyst job postings in India to uncover insights such as:
 
 - 💵Highest paying Data Analyst roles
-- 🧠Skills required for the top paying jobs
 - 📈Most in-demand skills for Data Analysts
 - 💹Highest paying skills for Data Analysts
 - 🖥️Optimal skills to learn for aspiring Data Analysts
